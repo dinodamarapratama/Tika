@@ -1,0 +1,175 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		</script>
+		<link href="css/style.css" rel="stylesheet" type="text/css"  media="all" />
+		<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="css/responsiveslides.css">
+		<script src="js/jquery.min.js"></script>
+		<script src="js/responsiveslides.min.js"></script>
+		  <script>
+		    // You can also use "$(window).load(function() {"
+			    $(function () {
+			
+			      // Slideshow 1
+			      $("#slider1").responsiveSlides({
+			        maxwidth: 1600,
+			        speed: 600
+			      });
+			});
+		  </script>
+		  
+<style>
+body {
+  font-family: 'Raleway', sans-serif;
+  background: #f5c34c;
+  border-top: 10px dotted #f5c34c;
+}
+.span{
+
+	font-size:1.2em;
+	color: #FFF;
+	font-family: 'Raleway', sans-serif;
+}
+input[type="text"]{
+		    padding:8px;
+			
+			display:block;
+			width: 100%;
+			border: none;
+			outline:none;
+			color:#464646;
+			font-size:1em;
+			font-family:Arial, Helvetica, sans-serif;
+			-webkit-appearance:none;
+			
+}
+input[type="submit"]{
+background-color:#141414;
+	padding: 7px 24px 7px 24px;
+	display: block;
+	color:#fff;
+	
+	font-size:0.875em;
+}
+input[type="submit"]:hover{
+	color:#f5c34c;
+}
+</style>
+	<script charset="utf-8" src="js/apiomat.js"></script>
+	</head>
+	<body onload="init();">
+		<!-----start-header----->
+		<div class="header">
+			<!---start-wrap---->
+			<div class="wrap">
+				<!----start-main-header----->
+				<div class="main-header">
+					<div class="logo">
+					<a class="backbutton" href="index.html">Back</a>
+						<a href="index.html"><img src="images/logo1.png" title="logo" /></a>
+						<p>JAKARTA - DEPOK</p>
+					</div>
+					<div class="clear"> </div>
+				</div>
+				<!----End-main-header----->
+			</div>
+		</div>
+		<div class="clear"> </div>
+		<div class="wrap">
+			<!---End-header--->
+			
+			<div class="about-header">
+						<h3></h3><br/>
+						<label class="span">&nbsp; Id Taksi</label>
+		<input type="text" id="idtaksi"  value="" /><br/>
+
+			 	 
+	<span><input type="submit" value="Cari" onclick="cariPegawai()"></span>
+
+ 
+					</div><br/><br/>
+	  <h3 class="span" id="statusS" >Daftar Pengemudi</h3><br/>
+					
+		<div class="about-sidebar" id="daftarPegawai">
+						
+						
+						
+					
+					</div>
+		</div>
+		<!---start-content----->
+		<div class="content">
+			<div class="wrap">
+			<div class="clear"> </div>
+			<!---start-footer-grids--->	
+				
+			<!---End-footer-grids--->		
+			</div>
+		</div>
+	<!---End-wrap---->
+	</body>
+	<script type="text/javascript">
+	
+	var dataLength = 0;
+    function init() {
+        var user = new Apiomat.User();
+        user.setUserName("Admin");
+        user.setPassword("12345");
+        Apiomat.Datastore.configure(user);
+        var saveCB = {
+            onOk: function() {
+            
+            },
+            onError: function(error) {
+            }
+        };
+        user.loadMe({
+            onOk: function() {
+			
+	
+             
+				
+            },
+            onError: function(error) {
+                user.save(saveCB);
+
+            }
+        });
+    }
+	
+	
+	
+	
+	
+	function cariPegawai() {
+
+	var z = $( "#idtaksi" ).val();
+    var y = "idtaksi==" + '"' + z + '"' ; 
+	document.getElementById('daftarPegawai').innerHTML = "";
+    Apiomat.Pegawai.getPegawais(y, {
+            onOk: function(data) {
+                for (var i = 0; i < data.length; i++) {
+                    document.getElementById('daftarPegawai').innerHTML +=  "<div class='about-sidebar-grid'><div class='about-sidebar-grid-img'><a href='#'><img src='"+data[i].getFotoURL()+"' title='image-name' /></a></div><div class='about-sidebar-grid-info'><p>"+data[i].getNama()+"</p><span>NIP : "+data[i].getNip()+"</span><br/><span>Nomer Plat Mobil: "+ data[i].getNoplat()+"</span><br/><span>Perusahaan : "+data[i].getPerusahaan()+"</span><br/></div><div class='clear'> </div></div>";
+                     dataLength = data.length;	
+                }if (dataLength == 0){document.getElementById("statusS").innerHTML = '&nbsp;'+ "Pegawai tidak ditemukan";} 
+            },
+            onError: function(error) {
+                status.innerHTML = "Can't load list: " + error.statusCode + " --> " + error.message;
+				dataLength = 0;
+            }
+        });
+    }
+
+</script>
+</html>
+

@@ -1,0 +1,268 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		</script>
+		<link href="css/style.css" rel="stylesheet" type="text/css"  media="all" />
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+		<script type="text/javascript" src="js/gmaps.js"></script>
+		<script charset="utf-8" src="js/apiomat.js"></script>
+		<script src="js/jquery.min.js"></script>
+	    <style>
+		.maxl{
+  margin:25px ;
+}
+.inline{
+  display: inline-block;
+}
+.inline + .inline{
+  margin-left:10px;
+}
+.radio{
+  color:#999;
+  font-size:15px;
+  position:relative;
+}
+.radio span{
+  position:relative;
+   padding-left:20px;
+}
+.radio span:after{
+  content:'';
+  width:15px;
+  height:15px;
+  border:3px solid;
+  position:absolute;
+  left:0;
+  top:1px;
+  border-radius:100%;
+  -ms-border-radius:100%;
+  -moz-border-radius:100%;
+  -webkit-border-radius:100%;
+  box-sizing:border-box;
+  -ms-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+}
+.radio input[type="radio"]{
+   cursor: pointer; 
+  position:absolute;
+  width:100%;
+  height:100%;
+  z-index: 1;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"
+}
+.radio input[type="radio"]:checked + span{
+  color:#f5c34c;  
+}
+.radio input[type="radio"]:checked + span:before{
+    content:'';
+  width:5px;
+  height:5px;
+  position:absolute;
+  background:#f5c34c;
+  left:5px;
+  top:6px;
+  border-radius:100%;
+  -ms-border-radius:100%;
+  -moz-border-radius:100%;
+  -webkit-border-radius:100%;
+}
+		</style>
+	</head>
+	<body onload="init();">
+		<!-----start-header----->
+		<div class="header">
+			<!---start-wrap---->
+			<div class="wrap">
+				<!----start-main-header----->
+				<div class="main-header">
+					<div class="logo">
+					    <a class="backbutton" href="index.html">Back</a>
+						<a href="index.html"><img src="images/logo1.png" title="logo" /></a>
+						<p>JAKARTA - DEPOK</p>
+					</div>
+					<div class="clear"> </div>
+				</div>
+				<!----End-main-header----->
+			</div>
+		</div>
+		<div class="clear"> </div>
+			<!---End-header--->
+		<!---start-content----->
+		<div class="content">
+		<div id="mapCanvas"></div>
+			<div class="wrap">
+			<div id="optionMarker" class="maxl">
+				<label class="radio inline"> 
+				<input onclick="loadOption()" type="radio" name="radio" value="all" checked>
+				<span> Jakarta - Depok </span> 
+				</label>
+				<label class="radio inline"> 
+				<input onclick="loadOption()" type="radio" name="radio" value="Jakarta">
+				<span> Jakarta </span> 
+				</label>
+				<label class="radio inline"> 
+				<input onclick="loadOption()" type="radio" name="radio" value="Depok">
+				<span> Depok</span> 
+				</label>
+				</div>
+			<div class="content-grids" id="listMarker">
+			
+				
+			</div>
+			<div class="clear"> </div>
+			<!---start-top-header---->
+				<div class="top-header">
+					
+					<div class="clear"> </div>
+				</div>
+				<!---End-top-header---->
+			<!---start-footer-grids--->	
+			
+			<!---End-footer-grids--->		
+			</div>
+		</div>
+	<!---End-wrap---->
+	<script type="text/javascript">
+	
+	var popupTemplate = '<div class="popupText"><h3>%1</h3><p>%2</p><p>%3</p></div>';
+	var map;
+    function init() {
+        var user = new Apiomat.User();
+        user.setUserName("Admin");
+        user.setPassword("12345");
+        Apiomat.Datastore.configure(user);
+        var saveCB = {
+            onOk: function() {
+            
+            },
+            onError: function(error) {
+            }
+        };
+        user.loadMe({
+            onOk: function() {
+			
+	
+                loadTask();
+				
+            },
+            onError: function(error) {
+                user.save(saveCB);
+
+            }
+        });
+    }
+	
+	
+	
+	
+	var contentString = '<div style="width: 94.2%; padding-left:10px; height: 25px;float: left;color: #FFF;background: #ed1e79;line-height: 25px;"><strong><b>"You feild"</b></strong></div><div style="clear:both;height:0px;"><div style="float:left;width:90%;padding:5px 10px;border:1px solid #ccc;border-top:none;border-radius:0px 0px 5px 5px;"><div style="float:left;color:#666;font-size:18px;font-weight:bold;margin:5px 0px;"> <div style="padding: 0px;">]]..product_list[i].category..[[</div></div><div style="clear:both;height:0px;"></div><div style="float:left;line-height:18px;color:#666;font-size:13px;">"You feild"</div><div style="clear:both;height:0px;"></div><form action=\"navigat:"You feild"\"><input type=\"submit\"/ style=\"background:#7e7e7e;float:right;color:#FFF;padding:5px 7px;font-size:10px;font-weight:bold;border:none;margin:5px 0px; border-radius:0px !important;\" value=\"More Info\" ></form></div></div>'; 
+	function loadTask() {
+	
+	map = new GMaps({
+    div: '#mapCanvas',
+    lat: 0,
+    lng: 52,
+    zoom: 9,
+    width: '100%',
+    height: '280px',
+	icon: "images/marker.png"
+    });
+
+	//map.removeMarkers();
+    
+        Apiomat.Poll.getPolls(undefined, {
+            onOk: function(data) {
+                for (var i = 0; i < data.length; i++) {
+                    document.getElementById('listMarker').innerHTML += "<div class='grid'><h3 class='frist'>"+data[i].getNama_perusahaan()+"</h3><p>"+data[i].getAlamat()+"</p><a>"+data[i].getKota()+"</a></div>";
+                    map.setCenter(-6.209610, 106.845997);
+                    map.addMarker({
+                    lat: data[i].getLatitude(),
+                    lng: data[i].getLongitude(),
+                    title: "",
+					icon: "images/marker.png",
+                    infoWindow: {
+                       content: "<div style='width: 100%;margin-bottom:5px;height: 15px;float: left;color: #000;font-size:12px;font-weight:bold;'><strong><b>"+data[i].getNama_perusahaan()+"</b></strong></div><div style='clear:both;height:0px;'><div style='float:left;width:100%'><div style='color:#666;font-size:12px;font-weight:bold;	'> <div style='padding: 0px;'>"+data[i].getAlamat()+"</div></div></div></div>"
+					   
+                    }  
+                });
+                }
+            },
+            onError: function(error) {
+                status.innerHTML = "Can't load list: " + error.statusCode + " --> " + error.message;
+            }
+        });
+    }
+	
+	function loadOption() {
+	document.getElementById('listMarker').innerHTML = ""
+    var option  = $('#optionMarker input:radio:checked').val(); 
+    if (option == "all") {
+	map.removeMarkers();
+        Apiomat.Poll.getPolls(undefined, {
+            onOk: function(data) {
+                for (var i = 0; i < data.length; i++) {
+                    document.getElementById('listMarker').innerHTML += "<div class='grid'><h3 class='frist'>"+data[i].getNama_perusahaan()+"</h3><p>"+data[i].getAlamat()+"</p><a>"+data[i].getKota()+"</a></div>";
+                    map.setCenter(-6.209610, 106.845997);
+                    map.addMarker({
+                    lat: data[i].getLatitude(),
+                    lng: data[i].getLongitude(),
+                    title: "",
+					icon: "images/marker.png",
+                    infoWindow: {
+                       content: "<div style='width: 100%;margin-bottom:5px;height: 15px;float: left;color: #000;font-size:12px;font-weight:bold;'><strong><b>"+data[i].getNama_perusahaan()+"</b></strong></div><div style='clear:both;height:0px;'><div style='float:left;width:100%'><div style='color:#666;font-size:12px;font-weight:bold;	'> <div style='padding: 0px;'>"+data[i].getAlamat()+"</div></div></div></div>"
+					   
+                    }  
+                });
+                }
+            },
+            onError: function(error) {
+                status.innerHTML = "Can't load list: " + error.statusCode + " --> " + error.message;
+            }
+        });
+	
+	}
+	
+	else {
+	map.removeMarkers();
+	var y = "kota==" + '"' + option + '"'  ; 
+        Apiomat.Poll.getPolls(y, {
+            onOk: function(data) {
+                for (var i = 0; i < data.length; i++) {
+                    document.getElementById('listMarker').innerHTML += "<div class='grid'><h3 class='frist'>"+data[i].getNama_perusahaan()+"</h3><p>"+data[i].getAlamat()+"</p><a>"+data[i].getKota()+"</a></div>";
+                    map.setCenter(-6.209610, 106.845997);
+                    map.addMarker({
+                    lat: data[i].getLatitude(),
+                    lng: data[i].getLongitude(),
+                    title: "",
+					icon: "images/marker.png",
+                    infoWindow: {
+                       content: "<div style='width: 100%;margin-bottom:5px;height: 15px;float: left;color: #000;font-size:12px;font-weight:bold;'><strong><b>"+data[i].getNama_perusahaan()+"</b></strong></div><div style='clear:both;height:0px;'><div style='float:left;width:100%'><div style='color:#666;font-size:12px;font-weight:bold;	'> <div style='padding: 0px;'>"+data[i].getAlamat()+"</div></div></div></div>"
+					   
+                    }  
+                });
+                }
+            },
+            onError: function(error) {
+                status.innerHTML = "Can't load list: " + error.statusCode + " --> " + error.message;
+            }
+        });
+		
+		}
+    }
+
+</script>
+	</body>
+	
+</html>
