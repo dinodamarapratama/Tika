@@ -62,7 +62,7 @@ permission on your app, which PhoneGap requires.
 <gap:splash src="icon/240_400.jpg" gap:platform="android" gap:qualifier="port-ldpi" />
 <gap:splash src="icon/320_480.jpg" gap:platform="android" gap:qualifier="port-mdpi" />
 <gap:splash src="icon/480_800.jpg" gap:platform="android" gap:qualifier="port-hdpi" />
-<gap:splash src="icon/48.png" gap:platform="android" gap:qualifier="port-xhdpi" />
+<gap:splash src="icon/640_960.jpg" gap:platform="android" gap:qualifier="port-xhdpi" />
 
 <!--
 Define access to external domains.
